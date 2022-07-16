@@ -11,35 +11,33 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secreta'
 db = SQLAlchemy(app)
 
+
 #MODELO DO USUÁRIO
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name_ = db.Column(db.String(60), nullable = False)
-    birthday = db.Column(db.DateTime, nullable = False)
+    birthday = db.Column(db.Date, nullable = False)
     password = db.Column(db.String(10), nullable = False)
     role = db.Column(db.String(25), nullable = False)
-    img = db.Column(db.LargeBinary, nullable = False)
     email = db.Column(db.String(120), nullable = False)
     phone_number = db.Column(db.String(25), nullable = False)
 
-    def __init__(self, name_, birthday, password, role, img, email, phone_number):
+    def __init__(self, name_, birthday, password, role, email, phone_number):
         self.name_ = name_
         self.birthday = birthday
         self.password = password
         self.role = role
-        self.img = img
         self.email = email
         self.phone_number = phone_number
-
 
 #MODELO DO IMÓVEL
 class Imovel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    user_id = db.Column(db.Integer, nullable = False)
-    status_id = db.Column(db.Integer, nullable = False)
-    category_id = db.Column(db.Integer, nullable = False)
-    estado_propriedade_id = db.Column(db.Integer, nullable = False)
-    space_id = db.Column(db.Integer, nullable = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    estado_propriedade_id = db.Column(db.Integer, db.ForeignKey('prop_state.id'))
+    space_id = db.Column(db.Integer, db.ForeignKey('space.id'))
     banheiro = db.Column(db.Integer, nullable = False)
     quarto = db.Column(db.Integer, nullable = False)
     cidade = db.Column(db.String(25), nullable = False)
@@ -58,7 +56,6 @@ class Imovel(db.Model):
         self.views = views
         self.data_cadastro = data_cadastro
 
-
 #MODELO DAS CATEGORIAS
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -70,7 +67,7 @@ class Space(db.Model):
     space_name = db.Column(db.String(60), nullable = False) 
 
 #MODELO DO ESTADO DA PROPRIEDADE
-class Category(db.Model):
+class Prop_state(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     prop_state_name = db.Column(db.String(60), nullable = False)
 
@@ -78,6 +75,18 @@ class Category(db.Model):
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     status_name = db.Column(db.String(60), nullable = False)
+
+#MODELO DAS FOTOS DOS IMOVEIS
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    image = db.Column(db.LargeBinary, nullable = False)
+    imovel_id = db.Column(db.Integer, db.ForeignKey('imovel.id'))
+
+#MODELO DAS FOTOS DO USUÁRIO
+class User_img(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_img = db.Column(db.LargeBinary, nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
     @staticmethod
