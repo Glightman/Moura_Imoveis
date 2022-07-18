@@ -150,9 +150,11 @@
 
     <div class="box-container">
 
+
+    {% for imoveis in lista_imoveis %}
         <div class="box">
             <div class="image-container">
-                <img src="../static/img-1.jpg" alt="">
+                <img src="{{imovel}}" alt="">
                 <div class="info">
                     <h3>3 days ago</h3>
                     <h3>for rent</h3>
@@ -184,8 +186,9 @@
                 </div>
             </div>
         </div>
+    {% endfor %}
 
-        <div class="box">
+<!--         <div class="box">
             <div class="image-container">
                 <img src="../static/img-2.jpg" alt="">
                 <div class="info">
@@ -288,7 +291,7 @@
                     <a href="#" class="btn">view details</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="box">
             <div class="image-container">
