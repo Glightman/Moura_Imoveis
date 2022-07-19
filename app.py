@@ -87,8 +87,7 @@ class Img_user(db.Model):
 def index():
     img_imovel = Img_imovel.read_img_imovel()
     imovel = Imovel.read_imovel()
-    img_count = len(img_imovel)
-    return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel, cont_img = img_count)
+    return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel)
 
 app.register_blueprint(bp)
 
