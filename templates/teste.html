@@ -1,0 +1,8 @@
+{% for results in lista_imovel %}
+<td>{{results.bairro}}</td><br>
+    {% for results2 in lista_img %}
+        {% if results2.imovel_id == results.id %}
+            <img src="{{results2.img_url}}" alt=""><br>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
