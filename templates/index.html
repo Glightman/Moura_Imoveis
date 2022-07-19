@@ -151,38 +151,42 @@
     <div class="box-container">
 
 
-    {% for imoveis in lista_imoveis %}
+    {% for imoveis in lista_imovel %}
         <div class="box">   
             <div class="image-container">
-                <img src="{{imovel}}" alt="">
+                {% for image in lista_img %}
+                    {% if image.imovel_id == imoveis.id %}
+                        <img src="{{image.img_url}}" alt="">
+                    {% endif %}
+                {% endfor %}
+                
                 <div class="info">
-                    <h3>3 days ago</h3>
-                    <h3>for rent</h3>
+                    <h3>{{imoveis.data_cadastro}}</h3>
+                    <h3>{{imoveis.status}}</h3>
                 </div>
                 <div class="icons">
-                    <a href="#" class="fas fa-film"><h3>1</h3></a>
-                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>{{cont_img}}</h3></a>
                 </div>
             </div>
             <div class="content">
                 <div class="price">
-                    <h3>$25,000/mo</h3>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-envelope"></a>
-                    <a href="#" class="fas fa-phone"></a>
+                    <h3>R{{imoveis.price}}</h3>
+                    <!-- <a href="#" class="fas fa-heart"></a> -->
+                    <a href="#contact" class="fas fa-envelope"></a>
+                    <a href="#contact" class="fas fa-phone"></a>
                 </div>
                 <div class="location">
-                    <h3>modern apartments</h3>
-                    <p>jogeshwari west, mumbai, india - 400104</p>
+                    <h3>{{imoveis.bairro}}</h3>
+                    <p>{{imoveis.rua}}, {{imoveis.bairro}} - {{imoveis.cidade}}</p>
                 </div>
                 <div class="details">
-                    <h3> <i class="fas fa-expand"></i> 3500 sqft </h3>
-                    <h3> <i class="fas fa-bed"></i> 3 beds </h3>
-                    <h3> <i class="fas fa-bath"></i> 2 baths </h3>
+                    <h3> <i class="fas fa-expand"></i> {{imoveis.area}}² </h3>
+                    <h3> <i class="fas fa-bed"></i> {{imoveis.quartos}} quartos </h3>
+                    <h3> <i class="fas fa-bath"></i> {{imoveis.banheiros}} banheiros </h3>
                 </div>
                 <div class="buttons">
-                    <a href="#" class="btn">request info</a>
-                    <a href="#" class="btn">view details</a>
+                    <a href="#contact" class="btn">Visitar</a>
+                    <a href="#" class="btn">Ver detalhes</a>
                 </div>
             </div>
         </div>

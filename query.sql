@@ -52,3 +52,59 @@ insert into imovel (user_id, status_id, category_id,
 prop_state_id, space_id, banheiro, quarto, cidade,
 visualizacoes, data_cadastro, price)
 values (2, );
+
+
+
+
+
+
+
+
+
+
+create table users(
+id serial primary key,
+name varchar(60) not null,
+birthday date not null,
+password varchar(10) not null,
+role varchar(25) not null,
+email varchar(120) not null,
+phone_number varchar(25));
+
+insert into users (name, birthday, password, role, email, phone_number) 
+values ('Gabriel Santana', '07/08/1997', 'Kaga@2019', 'Admin', 'gabriellima36716@gmail.com', '73988931076');
+
+insert into users (name, birthday, password, role, email, phone_number) 
+values ('Victor Moura', '01/12/1999', 'regina1962', 'Corretor imobiliário', 
+'vitors-dm@hotmail.com', '73991172026');
+
+create table imovel(
+id serial primary key,
+user_id int references users(id) not null,
+status varchar(60) not null,
+category varchar(60) not null,
+prop_state varchar(60) not null,
+space varchar(250) not null,
+banheiros int not null,
+quartos int not null,
+cidade varchar(25) not null,
+bairro varchar(25) not null,
+views int not null,
+data_cadastro date not null,
+price money not null,
+rua varchar(120) not null,
+area int not null);
+
+insert into imovel (user_id, status, category, prop_state, space, banheiros, quartos, cidade, bairro, views, data_cadastro, price, rua, area)
+values (2, 'para vender', 'casa', 'mobiliada', 'piscina, garagem, area de churrasco', 3, 3, 'Porto Seguro', 'Vilage II', 0, '07/19/2022', 680000, 'rua das gromélias', 400)
+
+create table img_imovel(
+id serial primary key,
+imovel_id int references imovel(id) not null,
+img_url varchar(1000) not null);
+
+create table img_user(
+id serial primary key,
+user_id int references users(id) not null,
+img_url varchar(1000) not null);
+
