@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 :root{
-    --red:#ff5a3c;
+    --red:#b70808;
     --light-red:#f9edeb;
 }
 
@@ -117,7 +117,7 @@ header .icons #menu-bars{
 
 .home{
     min-height: 100vh;
-    background:url(../home-bg.jpg) no-repeat;
+    background:url(https://eliteresorts.com.br/wp-content/uploads/2018/05/aerea-porto-seguro-praia-resort.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
