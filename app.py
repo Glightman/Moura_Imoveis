@@ -20,6 +20,28 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secreta'
 db = SQLAlchemy(app)
 
+#MODELO DO USUÁRIO
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(60), nullable = False)
+    birthday = db.Column(db.Date, nullable = False)
+    password = db.Column(db.String(10), nullable = False)
+    role = db.Column(db.String(25), nullable = False)
+    email = db.Column(db.String(120), nullable = False)
+    phone_number = db.Column(db.String(25), nullable = False)
+
+    def __init__(self, name, birthday, password, role, email, phone_number):
+        self.name = name
+        self.birthday = birthday
+        self.password = password
+        self.role = role
+        self.email = email
+        self.phone_number = phone_number
+    
+    @staticmethod
+    def read_user():
+        return Users.query.order_by(Users.id).all()
+
 class Imovel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -70,10 +92,6 @@ class Img_imovel(db.Model):
     def read_img_imovel():
         return Img_imovel.query.order_by(Img_imovel.id).all()
     
-    #@staticmethod
-    #def read_single(imovel_id):
-        #return Img_imovel.query.get(imovel_id)
-
 class Img_user(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -83,16 +101,23 @@ class Img_user(db.Model):
         self.user_id = user_id
         self.img_url = img_url
 
+    @staticmethod
+    def read_img_user():
+        return Img_user.query.order_by(Img_user.id).all()
+
 @bp.route('/')
 def index():
     img_imovel = Img_imovel.read_img_imovel()
     imovel = Imovel.read_imovel()
-    return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel)
+    img_user = Img_user.read_img_user()
+    user = Users.read_user()
+    return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel, lista_img_user = img_user, lista_user = user)
 
+@bp.route('/login')
+def login():
+    return render_template('login.html')
+    
 app.register_blueprint(bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#results = db.session.query(Imovel, Img_imovel).join(Img_imovel).all()
-#print(Imovel.bairro, Img_imovel.img_url)
