@@ -116,7 +116,15 @@ def index():
 @bp.route('/login')
 def login():
     return render_template('login.html')
-    
+
+@bp.route('/imovel_registration')
+def imovel_register():
+    return render_template('imovel_register.html')
+
+@bp.route('/admin')
+def admin():
+    return render_template('admin.html')
+
 app.register_blueprint(bp)
 
 if __name__ == '__main__':
