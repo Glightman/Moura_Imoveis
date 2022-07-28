@@ -1,5 +1,6 @@
+from collections import UserDict
 from os import name
-from flask import (Flask, Blueprint, render_template, request, session)
+from flask import (Flask, Blueprint, redirect, render_template, request, session, url_for)
 from http import server
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -41,6 +42,17 @@ class Users(db.Model):
     @staticmethod
     def read_user():
         return Users.query.order_by(Users.id).all()
+    
+    @staticmethod
+    def read_single(email, password):
+        users = Users.read_user()
+        print('entrei no read_single')
+        lista_users1 = users
+        for user in lista_users1:
+            print(user.name)
+            if user.email == email and user.password == password:
+                print(user.name)
+                return Users.query.get(user.id)
 
 class Imovel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -113,9 +125,21 @@ def index():
     user = Users.read_user()
     return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel, lista_img_user = img_user, lista_user = user)
 
-@bp.route('/login')
+@bp.route('/login', methods=('GET','POST'))
 def login():
-    return render_template('login.html')
+    email = None
+    password = None
+    if request.method == 'POST':
+        print('entrei no post')
+        form = request.form
+        user = Users.read_single(form['email'], form['password'])
+        print(form['email'], form['password'])
+        email = form['email']
+        password = form['password']
+        if user:
+            print('cheguei no redirect')
+            return redirect('/admin')
+    return render_template('login.html', email=email, password=password)
 
 @bp.route('/imovel_registration')
 def imovel_register():

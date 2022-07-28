@@ -14,20 +14,22 @@
     <div class="container">
       <div class="wrapper">
         <div class="title"><span>Login Form</span></div>
-        <form action="#">
+        <form method="POST" autocomplete="on">
           <div class="row">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Email or Phone" required>
+            <label for="email">Email:</label>
+            <input type="text" name="email" required>
           </div>
           <div class="row">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" required>
+            <label for="password">Senha:</label>
+            <input type="password" name="password"  required>
           </div>
           <div class="pass"><a href="#">Forgot password?</a></div>
           
         <div class="buttons">
             <a href="/" class="btn">Voltar</a>
-            <a href="/admin" class="btn">Next</a>
+            <input type="submit" value="Cadastrar" class="btn">
         </div>
         </form>
       </div>
