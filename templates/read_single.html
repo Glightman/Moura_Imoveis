@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Moura | Imóveis</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../static/pages/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    {% include 'header.html' %}
+
+    <!-- featured section starts  -->
+
+    <section class="featured" id="featured">
+
+        <h1 class="heading"> <span>featured</span> properties </h1>
+
+        <div class="box-container">
+            <div class="box">
+                <div class="content">
+                    <div class="price">
+                        <h3>R{{imovel.price}}</h3>
+                        <a href="#contact" class="fas fa-envelope"></a>
+                        <a href="#contact" class="fas fa-phone"></a>
+                    </div>
+                    <div class="location">
+                        <h3>{{imovel.bairro}}</h3>
+                        <p>{{imovel.rua}}, {{imovel.bairro}} - {{imovel.cidade}}</p>
+                    </div>
+                    <div class="details">
+                        <h3> <i class="fas fa-expand"></i> {{imovel.area}} METROS QUADRADOS</h3>
+                        <h3> <i class="fas fa-bed"></i> {{imovel.quartos}} QUARTOS</h3>
+                        <h3> <i class="fas fa-bath"></i> {{imovel.banheiros}} BANHEIROS</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        {% for image in lista_img %}
+                        {% if image.imovel_id == imovel.id %}
+                        <img src="{{image.img_url}}" alt="">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+    </section>
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+
+        <div class="footer-container">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3>branch location</h3>
+                    <a href="#">india</a>
+                    <a href="#">USA</a>
+                    <a href="#">france</a>
+                    <a href="#">russia</a>
+                    <a href="#">japan</a>
+                </div>
+
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href="#">home</a>
+                    <a href="#">services</a>
+                    <a href="#">featured</a>
+                    <a href="#">agents</a>
+                    <a href="#">contact</a>
+                </div>
+
+                <div class="box">
+                    <h3>extra links</h3>
+                    <a href="#">my account</a>
+                    <a href="#">my favorite</a>
+                    <a href="#">my list</a>
+                </div>
+
+                <div class="box">
+                    <h3>follow us</h3>
+                    <a href="https://facebook.com/freewebsitecode/">facebook</a>
+                    <a href="https://freewebsitecode.com/">twitter</a>
+                    <a href="https://freewebsitecode.com/">instagram</a>
+                    <a href="https://freewebsitecode.com/">linkedin</a>
+                    <a href="https://www.youtube.com/channel/UC9HlQRmKgG3jeVD_fBxj1Pw/videos">youtube</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- footer section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- javascript part  -->
+    <script>
+
+        let menu = document.querySelector('#menu-bars');
+        let navbar = document.querySelector('.navbar');
+
+        menu.onclick = () => {
+            navbar.classList.toggle('active');
+            menu.classList.toggle('fa-times');
+        }
+
+        window.onscroll = () => {
+            navbar.classList.remove('active');
+            menu.classList.remove('fa-times');
+        }
+
+    </script>
+
+</body>
+
+</html>

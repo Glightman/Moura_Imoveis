@@ -134,6 +134,18 @@ def index():
     user = Users.read_user()
     return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel, lista_img_user = img_user, lista_user = user)
 
+@bp.route('/ver_todos')
+def read_all():
+    img_imovel = Img_imovel.read_img_imovel()
+    imovel = Imovel.read_imovel()
+    return render_template('read_all.html', lista_img = img_imovel, lista_imovel = imovel)
+
+@bp.route('/ver_detalhes/<imovel_id>')
+def read_single(imovel_id):
+    imovel = Imovel.read_single(imovel_id)
+    img_imovel = Img_imovel.read_img_imovel()
+    return render_template('read_single.html', imovel = imovel, lista_img = img_imovel)
+
 @bp.route('/login', methods=('GET','POST'))
 def login():
     email = None

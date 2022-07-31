@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Moura | Imóveis</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../static/pages/style.css">
+
+</head>
+<body>
+
+{% include 'header.html' %}
+
+<!-- featured section starts  -->
+
+<section class="featured" id="featured">
+
+    <h1 class="heading"> <span>featured</span> properties </h1>
+
+    <div class="box-container">
+        <div class="box">   
+            <div class="image-container">
+                {% for image in lista_img %}
+                    {% if image.imovel_id == imoveis.id %}
+                        <img src="{{image.img_url}}" alt="">
+                    {% endif %}
+                {% endfor %}
+                
+                <div class="info">
+                    <h3>{{imoveis.data_cadastro}}</h3>
+                    <h3>{{imoveis.status}}</h3>
+                </div>
+                <div class="icons">
+                    <a href="#" class="fas fa-camera"><h3>+</h3></a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3>R{{imoveis.price}}</h3>
+                    <a href="#contact" class="fas fa-envelope"></a>
+                    <a href="#contact" class="fas fa-phone"></a>
+                </div>
+                <div class="location">
+                    <h3>{{imoveis.bairro}}</h3>
+                    <p>{{imoveis.rua}}, {{imoveis.bairro}} - {{imoveis.cidade}}</p>
+                </div>
+                <div class="details">
+                    <h3> <i class="fas fa-expand"></i> {{imoveis.area}}² </h3>
+                    <h3> <i class="fas fa-bed"></i> {{imoveis.quartos}}</h3>
+                    <h3> <i class="fas fa-bath"></i> {{imoveis.banheiros}}</h3>
+                </div>
+                <div class="buttons">
+                    <a href="#contact" class="btn">Visitar</a>
+                    <a href="#" class="btn">detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+<!-- footer section starts  -->
+
+<section class="footer">
+
+    <div class="footer-container">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>branch location</h3>
+                <a href="#">india</a>
+                <a href="#">USA</a>
+                <a href="#">france</a>
+                <a href="#">russia</a>
+                <a href="#">japan</a>
+            </div> 
+            
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="#">home</a>
+                <a href="#">services</a>
+                <a href="#">featured</a>
+                <a href="#">agents</a>
+                <a href="#">contact</a>
+            </div> 
+
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#">my account</a>
+                <a href="#">my favorite</a>
+                <a href="#">my list</a>
+            </div> 
+
+            <div class="box">
+                <h3>follow us</h3>
+                <a href="https://facebook.com/freewebsitecode/">facebook</a>
+                <a href="https://freewebsitecode.com/">twitter</a>
+                <a href="https://freewebsitecode.com/">instagram</a>
+                <a href="https://freewebsitecode.com/">linkedin</a>
+                <a href="https://www.youtube.com/channel/UC9HlQRmKgG3jeVD_fBxj1Pw/videos">youtube</a>
+            </div> 
+
+        </div>
+
+        <div class="credit">created by <span><a href="https://freewebsitecode.com/">Free Website Code</a></span> | all rights reserved! </div>
+
+    </div>
+
+</section>
+
+<!-- footer section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- javascript part  -->
+<script>
+
+let menu = document.querySelector('#menu-bars');
+let navbar = document.querySelector('.navbar');
+
+menu.onclick = () =>{
+    navbar.classList.toggle('active');
+    menu.classList.toggle('fa-times');
+}
+
+window.onscroll = () =>{
+    navbar.classList.remove('active');
+    menu.classList.remove('fa-times');
+}
+
+</script>
+
+</body>
+</html>
