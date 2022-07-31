@@ -87,9 +87,17 @@ class Imovel(db.Model):
     @staticmethod
     def read_imovel():
         return Imovel.query.order_by(Imovel.id).all()
+
+    @staticmethod
+    def read_single(imovel_id):
+        return Imovel.query.get(imovel_id)
     
     def save(self):
         db.session.add(self)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self) 
         db.session.commit()
 
 class Img_imovel(db.Model):
@@ -175,6 +183,20 @@ def admin(email):
                 return render_template('admin.html', lista_img = img_imovel, lista_imovel = imovel)
             else:
                 return 'USUÁRIO NÃO ENCONTRADO!'
+
+@bp.route('/delete/<imovel_id>') #rota de confirmação do delete
+def delete(imovel_id):
+    imovel = Imovel.read_single(imovel_id)
+    return render_template('delete.html', imovel = imovel)
+
+@bp.route('/delete/<imovel_id>/confirmed') #rota que realiza de fato a deleçõ do filme selecionado e mostra o html de sucesso.
+def delete_confirmed(imovel_id):
+    sucesso = None
+    imovel =Imovel.read_single(imovel_id)
+    if imovel:
+        imovel.delete()
+        sucesso=True
+    return render_template('delete.html', sucesso = sucesso)
 
 app.register_blueprint(bp)
 
