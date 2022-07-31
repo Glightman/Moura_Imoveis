@@ -184,12 +184,12 @@ def admin(email):
             else:
                 return 'USUÁRIO NÃO ENCONTRADO!'
 
-@bp.route('/delete/<imovel_id>') #rota de confirmação do delete
+@bp.route('/delete/<imovel_id>')
 def delete(imovel_id):
     imovel = Imovel.read_single(imovel_id)
     return render_template('delete.html', imovel = imovel)
 
-@bp.route('/delete/<imovel_id>/confirmed') #rota que realiza de fato a deleçõ do filme selecionado e mostra o html de sucesso.
+@bp.route('/delete/<imovel_id>/confirmed')
 def delete_confirmed(imovel_id):
     sucesso = None
     imovel =Imovel.read_single(imovel_id)
