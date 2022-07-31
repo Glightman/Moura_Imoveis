@@ -46,12 +46,9 @@ class Users(db.Model):
     @staticmethod
     def read_single(email, password):
         users = Users.read_user()
-        print('entrei no read_single')
         lista_users1 = users
         for user in lista_users1:
-            print(user.name)
             if user.email == email and user.password == password:
-                print(user.name)
                 return Users.query.get(user.id)
 
 class Imovel(db.Model):
@@ -130,24 +127,31 @@ def login():
     email = None
     password = None
     if request.method == 'POST':
-        print('entrei no post')
         form = request.form
         user = Users.read_single(form['email'], form['password'])
-        print(form['email'], form['password'])
         email = form['email']
         password = form['password']
         if user:
-            print('cheguei no redirect')
-            return redirect('/admin')
+            return redirect(f'/admin/{user.name}{user.email}{user.id}')
     return render_template('login.html', email=email, password=password)
 
 @bp.route('/imovel_registration')
 def imovel_register():
     return render_template('imovel_register.html')
 
-@bp.route('/admin')
-def admin():
-    return render_template('admin.html')
+@bp.route('/admin/<email>')
+def admin(email):
+    img_imovel = Img_imovel.read_img_imovel()
+    imovel = Imovel.read_imovel()
+    users = Users.read_user()
+    lista_users2 = users
+
+    for user in lista_users2:
+        if user.email == 'vitors-dm@hotmail.com':
+            if f'{user.name}{user.email}{user.id}' == email:
+                return render_template('admin.html', lista_img = img_imovel, lista_imovel = imovel)
+            else:
+                return 'USUÁRIO NÃO ENCONTRADO!'
 
 app.register_blueprint(bp)
 
