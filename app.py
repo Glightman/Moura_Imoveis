@@ -53,7 +53,7 @@ class Users(db.Model):
 
 class Imovel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     status = db.Column(db.String(250), nullable = False)
     category = db.Column(db.String(250), nullable = False)
     prop_state = db.Column(db.String(250), nullable = False)
@@ -68,7 +68,7 @@ class Imovel(db.Model):
     rua = db.Column(db.String(120), nullable = False)
     area = db.Column(db.Integer, nullable = False)
 
-    def __init__(self, user_id, status, category, prop_state, space, banheiros, quartos, cidade, bairro, views, data_cadastro, price, rua, area):
+    def __init__(self, user_id, status, category, prop_state, space, banheiros, quartos, cidade, bairro, data_cadastro, price, rua, area):
         self.user_id = user_id
         self.status = status
         self.category = category
@@ -78,7 +78,7 @@ class Imovel(db.Model):
         self.quartos = quartos
         self.cidade = cidade
         self.bairro = bairro
-        self.views = views
+        self.views = 0
         self.data_cadastro = data_cadastro
         self.price = price
         self.rua = rua
@@ -87,6 +87,10 @@ class Imovel(db.Model):
     @staticmethod
     def read_imovel():
         return Imovel.query.order_by(Imovel.id).all()
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Img_imovel(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -135,9 +139,28 @@ def login():
             return redirect(f'/admin/{user.name}{user.email}{user.id}')
     return render_template('login.html', email=email, password=password)
 
-@bp.route('/imovel_registration')
-def imovel_register():
-    return render_template('imovel_register.html')
+@bp.route('/create', methods=('GET','POST'))
+def create():
+    id_atribuido = None
+    if request.method =='POST':
+        form = request.form
+        imovel = Imovel(2,
+        form['status'], 
+        form['category'], 
+        form['prop_state'], 
+        form['space'], 
+        form['banheiros'], 
+        form['quartos'], 
+        form['cidade'], 
+        form['bairro'], 
+        form['data_cadastro'], 
+        form['price'], 
+        form['rua'], 
+        form['area'])
+        imovel.save()
+        print('criei o imovel')
+        id_atribuido=imovel.id
+    return render_template('imovel_register.html', id_atribuido = id_atribuido)
 
 @bp.route('/admin/<email>')
 def admin(email):
