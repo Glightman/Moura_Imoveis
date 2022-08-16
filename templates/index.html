@@ -23,12 +23,9 @@
 
     <section class="home" id="home">
 
-        <form action="">
-
+        <form method="POST">
             <h3>Pesquise seu imóvel</h3>
             <div class="inputBox">
-                <!-- <input type="search" name="" placeholder="Preço min">
-                <input type="search" name="" placeholder="Preço max"> -->
                 <select name="price" type="number" class="input">
                     <option value="" disabled hidden selected>Preço max</option>
                     <option value="30000">R$ 30.000</option>
@@ -38,11 +35,11 @@
                     <option value="150000">R$ 150.000</option>
                     <option value="200000">R$ 200.000</option>
                     <option value="300000">R$ 300.000</option>
-                    <option value="$50000">R$ 400.000</option>
-                    <option value="$50000">R$ 600.000</option>
-                    <option value="$50000">R$ 1.000.000</option>
-                    <option value="$50000">R$ 2.000.000</option>
-                    <option value="$50000">R$ 15.000.000</option>
+                    <option value="400000">R$ 400.000</option>
+                    <option value="600000">R$ 600.000</option>
+                    <option value="1000000">R$ 1.000.000</option>
+                    <option value="2000000">R$ 2.000.000</option>
+                    <option value="15000000">R$ 15.000.000</option>
                 </select>
                 <select name="prop_state" type="text" class="input">
                     <option value="" disabled hidden selected>Estado da propriedade</option>
@@ -69,30 +66,31 @@
                     <option value="playground">area de churrasco</option>
                     <option value="todos">all</option>
                 </select>
-                <select name="quartos" type="text" class="input">
+                
+                <input type="number" name="quartos" placeholder="quartos">
+                <input type="number" name="banheiros" placeholder="banheiros">
+                <!-- 
+                <select name="quartos" type="number" class="input">
                     <option value="" disabled hidden selected>Quartos</option>
                     <option value="nenhum">nenhum</option>
-                    <option value="1 bedroom">1 quarto</option>
-                    <option value="2 bedroom">2 quartos</option>
-                    <option value="3 bedroom">3 quartos</option>
-                    <option value="4 bedroom">4 quartos</option>
-                    <option value="5 bedroom">5 quartos</option>
-                </select>
-                <select name="banheiros" type="text" class="input">
+                    <option value="1">1 quarto</option>
+                    <option value="2">2 quartos</option>
+                    <option value="3">3 quartos</option>
+                    <option value="4">4 quartos</option>
+                    <option value="5">5 quartos</option>
+                </select> -->
+                <!-- <select name="banheiros" type="number" class="input">
                     <option value="" disabled hidden selected>Banheiros</option>
                     <option value="nenhum">nenhum</option>
-                    <option value="1 bathroom">1 banheiro</option>
-                    <option value="2 bathroom">2 banheiros</option>
-                    <option value="3 bathroom">3 banheiros</option>
-                    <option value="4 bathroom">4 banheiros</option>
-                    <option value="5 bathroom">5 banheiros</option>
-                </select>
+                    <option value="1">1 banheiro</option>
+                    <option value="2">2 banheiros</option>
+                    <option value="3">3 banheiros</option>
+                    <option value="4">4 banheiros</option>
+                    <option value="5">5 banheiros</option>
+                </select> -->
             </div>
-
             <input type="submit" value="Pesquisar" class="btn">
-
         </form>
-
     </section>
 
     <!-- home section ends -->
