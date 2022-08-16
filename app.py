@@ -94,21 +94,19 @@ class Imovel(db.Model):
     def search_imovel(key_word_ban, key_word_quar, key_word_price, key_word_category, key_word_state, key_word_space):
         lista_imovel = Imovel.query.order_by(Imovel.id).all()
         filters = []
-        print(20*'~-')
-        print(filters)
         for imovel in lista_imovel:
             string = imovel.price
             partialstr = string.replace(',','')
             newstr = partialstr.replace('$','')
             newstr2 = newstr.replace('.00','')
             newint = int(newstr2)
-            print(newstr2)
-            if imovel.banheiros >= key_word_ban or key_word_ban == 0:
+            if imovel.banheiros >= key_word_ban:
                 if imovel.quartos >= key_word_quar:
                     if newint <= key_word_price:
+                        print(key_word_category)
                         if imovel.category == key_word_category:
-                            if imovel.state == key_word_state:
-                                if imovel.space == key_word_space:
+                            if imovel.prop_state == key_word_state:
+                                if key_word_space in imovel.space:
                                     filters.append(imovel)
         return filters
 
@@ -166,7 +164,6 @@ def index():
         return render_template('read_all.html', lista_img = img_imovel, lista_imovel = search)
     img_imovel = Img_imovel.read_img_imovel()
     imovel = Imovel.read_imovel()
-    print(imovel)
     img_user = Img_user.read_img_user()
     user = Users.read_user()
     return render_template('index.html', lista_img = img_imovel, lista_imovel = imovel, lista_img_user = img_user, lista_user = user)
