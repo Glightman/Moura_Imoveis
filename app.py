@@ -67,8 +67,9 @@ class Imovel(db.Model):
     price = db.Column(db.Integer, nullable = False)
     rua = db.Column(db.String(120), nullable = False)
     area = db.Column(db.Integer, nullable = False)
+    post_type = db.Column(db.String(25), nullable = False)
 
-    def __init__(self, user_id, status, category, prop_state, space, banheiros, quartos, cidade, bairro, data_cadastro, price, rua, area):
+    def __init__(self, user_id, status, category, prop_state, space, banheiros, quartos, cidade, bairro, data_cadastro, price, rua, area, post_type):
         self.user_id = user_id
         self.status = status
         self.category = category
@@ -83,10 +84,35 @@ class Imovel(db.Model):
         self.price = price
         self.rua = rua
         self.area = area
+        self.post_type = post_type
     
     @staticmethod
     def read_imovel():
         return Imovel.query.order_by(Imovel.id).all()
+    
+    @staticmethod
+    def search_imovel_state(key_word):
+        return Imovel.query.filter(Imovel.prop_state.like(key_word))
+    
+    @staticmethod
+    def search_imovel_banheiros(key_word):
+        return Imovel.query.filter(Imovel.banheiros.like(key_word))
+    
+    @staticmethod
+    def search_imovel_quartos(key_word):
+        return Imovel.query.filter(Imovel.quartos.like(key_word))
+    
+    @staticmethod
+    def search_imovel_price(key_word):
+        return Imovel.query.filter(Imovel.price.like(key_word))
+    
+    @staticmethod
+    def search_imovel_category(key_word):
+        return Imovel.query.filter(Imovel.category.like(key_word))
+    
+    @staticmethod
+    def search_imovel_space(key_word):
+        return Imovel.query.filter(Imovel.space.like(key_word))
 
     @staticmethod
     def read_single(imovel_id):
@@ -126,8 +152,17 @@ class Img_user(db.Model):
     def read_img_user():
         return Img_user.query.order_by(Img_user.id).all()
 
-@bp.route('/')
+@bp.route('/', methods = ('GET','POST'))
 def index():
+    if request.method == 'POST':
+        form = request.form
+        imovel_banheiros = form['banheiros']
+        imovel_quartos= form['quartos']
+        imovel_price = form['price']
+        imovel_state = form['prop_state']
+        imovel_category = form['category']
+        imovel_space = form['space']
+        return render_template('read_all.html', lista_img = img_imovel, lista_imovel_ban = imovel_banheiros, lista_imovel_quar = imovel_quartos, lista_imovel_state = imovel_state, lista_imovel_price = imovel_price, lista_imovel_cat = imovel_category, lista_imovel_space = imovel_space)
     img_imovel = Img_imovel.read_img_imovel()
     imovel = Imovel.read_imovel()
     img_user = Img_user.read_img_user()
@@ -136,9 +171,17 @@ def index():
 
 @bp.route('/ver_todos')
 def read_all():
-    img_imovel = Img_imovel.read_img_imovel()
-    imovel = Imovel.read_imovel()
-    return render_template('read_all.html', lista_img = img_imovel, lista_imovel = imovel)
+        imovel_banheiros = Imovel.search_imovel_banheiros(form['banheiros'])
+        imovel_quartos= Imovel.search_imovel_quartos(form['quartos'])
+        imovel_price = Imovel.search_imovel_price(form['price'])
+        imovel_state = Imovel.search_imovel_state(form['prop_state'])
+        imovel_category = Imovel.search_imovel_category(form['category'])
+        imovel_space = Imovel.search_imovel_space(form['space'])
+        return render_template('read_all.html', lista_img = img_imovel, lista_imovel_ban = imovel_banheiros, lista_imovel_quar = imovel_quartos, lista_imovel_state = imovel_state, lista_imovel_price = imovel_price, lista_imovel_cat = imovel_category, lista_imovel_space = imovel_space)
+    elif met == 2:
+        img_imovel = Img_imovel.read_img_imovel()
+        imovel = Imovel.read_imovel()
+        return render_template('read_all.html', lista_img = img_imovel, lista_imovel = imovel)
 
 @bp.route('/ver_detalhes/<imovel_id>')
 def read_single(imovel_id):
